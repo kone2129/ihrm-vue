@@ -12,7 +12,7 @@ const _import = require('@/router/import_' + process.env.NODE_ENV)
 export default [
   {
     root: true,
-    path: '/saas-demo',
+    path: '/saas-clients',
     component: Layout,
     redirect: 'noredirect',
     name: 'saas-clients',
@@ -23,9 +23,9 @@ export default [
     children: [
       {
         path: 'index',
-        component: _import('demo/pages/index'),
+        component: _import('saas-clients/pages/index'),
         name: 'saas-clients-index',
-        meta: {title: 'xxx业务模块', icon: 'component', noCache: true}
+        meta: {title: 'SAAS企业', icon: 'component', noCache: true}
       }
     ]
   }
