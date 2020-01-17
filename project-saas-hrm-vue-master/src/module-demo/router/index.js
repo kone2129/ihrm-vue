@@ -24,7 +24,7 @@ export default [
       {
         path: 'index',
         component: _import('demo/pages/index'),
-        name: 'saas-clients-index',
+        name: 'saas-clients-demo',
         meta: {title: 'xxx业务模块', icon: 'component', noCache: true}
       }
     ]

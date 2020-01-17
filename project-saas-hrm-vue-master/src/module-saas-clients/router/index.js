@@ -17,7 +17,7 @@ export default [
     redirect: 'noredirect',
     name: 'saas-clients',
     meta: {
-      title: 'xxx业务模块管理',
+      title: 'SAAS企业管理',
       icon: 'component'
     },
     children: [
@@ -25,7 +25,13 @@ export default [
         path: 'index',
         component: _import('saas-clients/pages/index'),
         name: 'saas-clients-index',
-        meta: {title: 'SAAS企业', icon: 'component', noCache: true}
+        meta: {title: 'SAAS企业管理', icon: 'component', noCache: true}
+      },
+      {
+        path: 'details/:id',
+        component: _import('saas-clients/pages/detail'),
+        name: 'saas-clients-detail',
+        meta: {title: 'SAAS企业详情', icon: 'component', noCache: true}
       }
     ]
   }
