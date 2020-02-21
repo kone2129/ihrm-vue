@@ -18,18 +18,25 @@ import './mock' // simulation data
 */
 import dashboard from '@/module-dashboard/' // 面板
 import demo from '@/module-demo/' // 面板
-import saasClients from '@/module-saas-clients/' // 面板
+import saasClients from '@/module-saas-clients/' // 企业管理
+import departments from '@/module-departments/' // 企业管理
+import employees from '@/module-employees/' // 企业管理
+import settings from '@/module-settings/' 
+///import permissions from '@/module-permissions/' 
+
 import tools from './utils/common.js'
-import departments from '@/module-departments/' // 组织机构管理
-
-
 Vue.prototype.$tools = tools
 
 Vue.use(tools)
 Vue.use(dashboard, store)
 Vue.use(demo, store)
 Vue.use(saasClients,store)
-Vue.use(departments, store)
+Vue.use(departments,store)
+Vue.use(employees,store)
+Vue.use(settings,store)
+//Vue.use(permissions,store)
+
+
 /*
 * 注册 - 组件
 */

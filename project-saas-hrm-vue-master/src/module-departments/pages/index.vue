@@ -2,230 +2,194 @@
   <div class="dashboard-container">
     <div class="app-container">
       <el-card shadow="never">
-        <div class="organization-index">
-          <div class="organization-index-top">
-            <div class="main-top-title">
-              <el-tabs v-model="activeName">
-                <el-tab-pane label="组织结构" name="first"></el-tab-pane>
-                <div class="el-tabs-report">
-                  <a class="el-button el-button--primary el-button--mini" title="导出">导入</a>
-                  <a class="el-button el-button--primary el-button--mini" title="导出">导出</a>
+            <div class='organization-index'>
+              <div class='organization-index-top'>
+                <div class='main-top-title'>
+                  <el-tabs v-model="activeName">
+                    <el-tab-pane label="组织结构" name="first"></el-tab-pane>
+                    <div class="el-tabs-report">
+                      <a class="el-button el-button--primary el-button--mini" title="导出" >导入</a>
+                      <a class="el-button el-button--primary el-button--mini" title="导出" >导出</a>
+                    </div>
+                  </el-tabs>
                 </div>
-              </el-tabs>
-            </div>
-          </div>
-          <div style="overflow: scroll;white-space:nowrap" class="treBox">
-            <div class="treeCon clearfix">
-              <span>
-                <i class="fa fa-university" aria-hidden="true"></i>
-                <span>
-                  <strong>{{departData.companyName}}</strong>
-                </span>
-              </span>
-              <div class="fr">
-                <span class="treeRinfo">
-                  <div class="treeRinfo">
-                    <span>{{departData.companyManage}}</span>
-                    <span>
-                      在职
-                      <em class="colGreen" title="在职人数">---</em>&nbsp;&nbsp;(
-                      <em class="colGreen" title="正式员工">---</em>&nbsp;/&nbsp;
-                      <em class="colRed" title="非正式员工">---</em>)
-                    </span>
-                  </div>
-                  <div class="treeRinfo">
-                    <el-dropdown class="item">
-                      <span class="el-dropdown-link">
-                        操作
-                        <i class="el-icon-arrow-down el-icon--right"></i>
-                      </span>
-                      <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>
-                          <el-button type="text" @click="handlAdd('')">添加子部门</el-button>
-                        </el-dropdown-item>
-                        <el-dropdown-item>
-                          <el-button type="text" @click="handleList()">查看待分配员工</el-button>
-                        </el-dropdown-item>
-                      </el-dropdown-menu>
-                    </el-dropdown>
-                  </div>
-                </span>
               </div>
-            </div>
+              <div style="overflow: scroll;white-space:nowrap"  class="treBox">
+                <div class="treeCon clearfix">
+                    <span>
+                      <i class="fa fa-university" aria-hidden="true"></i>
+                      <span ><strong>{{departData.companyName}}</strong></span>
+                    </span>
+                    <div class="fr">
+                      <span class="treeRinfo">
+                        <div class="treeRinfo">
+                          <span>{{departData.companyManage}}</span>
+                          <span>在职  <em class="colGreen" title="在职人数">---</em>&nbsp;&nbsp;(<em class="colGreen" title="正式员工">---</em>&nbsp;/&nbsp;<em class="colRed" title="非正式员工">---</em>)</span>
+                        </div>
+                        <div class="treeRinfo">
+                          <el-dropdown class="item">
+                            <span class="el-dropdown-link">
+                              操作<i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item>
+                                  <el-button type="text" @click="handlAdd('')">添加子部门</el-button>
+                                </el-dropdown-item>
+                              <el-dropdown-item>
+                                <el-button type="text" @click="handleList()">查看待分配员工</el-button>
+                              </el-dropdown-item>
+                            </el-dropdown-menu>
+                          </el-dropdown>
+                        </div>
+                      </span>  
+                    </div>
+                  </div>
 
-            <!--
+                  <!-- 
                     构造树形列表
                       叶子 <i class="fa fa-male"></i>
-                      非叶子
+                      非叶子 
                         展开 <i class="fa fa-minus-square-o">
                         闭合 <i class="fa fa-plus-square-o">
                     <div class="generalClass" slot-scope="{node,data}" style="width:99%">
-            -->
-
-            <el-tree :data="depts" :indent="20">
-              <div class="generalClass" slot-scope="{node,data}" style="width:99%">
-                <span>
-                  <span>
-                    <span>
-                      <i v-if="node.isLeaf" class="fa fa-male"></i>
-                      <i
-                        v-else
-                        :class="node.expanded ? 'fa fa-minus-square-o':'fa fa-plus-square-o'"
-                      ></i>
-                      <span>
-                        <strong>{{ data.name }}</strong>
-                      </span>
-                    </span>
-                  </span>
-                </span>
-                <div class="fr">
-                  <span class="treeRinfo">
-                    <div class="treeRinfo">
-                      <span>{{ data.manager }}</span>
-                      <span>
-                        在职
-                        <em class="colGreen" title="在职人数">---</em>&nbsp;&nbsp;(
-                        <em class="colGreen" title="正式员工">---</em>&nbsp;/&nbsp;
-                        <em class="colRed" title="非正式员工">---</em>)
-                      </span>
-                    </div>
-                    <el-dropdown class="item">
-                      <span class="el-dropdown-link">
-                        操作
-                        <i class="el-icon-arrow-down el-icon--right"></i>
-                      </span>
-                      <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>
-                          <el-button type="text" @click="handlAdd(data.id)">
-                            添加子
-                            部门
-                          </el-button>
-                        </el-dropdown-item>
-                        <el-dropdown-item>
-                          <el-button type="text" @click="handleEdit(data.id)">
-                            编辑
-                            部门
-                          </el-button>
-                        </el-dropdown-item>
-                        <el-dropdown-item>
-                          <el-button type="text" @click="handleList(treeRoot,1)">
-                            查
-                            看员工
-                          </el-button>
-                        </el-dropdown-item>
-                        <el-dropdown-item>
-                          <el-button type="text" @click="handleDelete(data)">删除</el-button>
-                        </el-dropdown-item>
-                      </el-dropdown-menu>
-                    </el-dropdown>
-                  </span>
-                </div>
+                  -->
+                  <el-tree :props="{label:'name'}" :data="depts" node-key="id" default-expand-all>
+                    <!--
+                      node : 是否展开，是否叶子节点
+                      data：部门对象
+                            id，name
+                     -->
+                    <div class="generalClass" slot-scope="{node,data}" style="width:99%">
+                        <span>
+                           <i v-if="node.isLeaf" class="fa fa-male"></i>
+                           <i v-else :class="node.expanded?'fa fa-minus-square-o':'fa fa-plus-square-o'"></i>
+                          <span>{{ node.label }}</span>
+                        </span>
+                         <div class="fr">
+                          <span class="treeRinfo">
+                            <div class="treeRinfo">
+                              <span>{{departData.companyManage}}</span>
+                              <span>在职  <em class="colGreen" title="在职人数">---</em>&nbsp;&nbsp;(<em class="colGreen" title="正式员工">---</em>&nbsp;/&nbsp;<em class="colRed" title="非正式员工">---</em>)</span>
+                            </div>
+                            <div class="treeRinfo">
+                              <el-dropdown class="item">
+                                <span class="el-dropdown-link">
+                                  操作<i class="el-icon-arrow-down el-icon--right"></i>
+                                </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item>
+                                      <el-button type="text" @click="handlAdd(data.id)">添加子部门</el-button>
+                                    </el-dropdown-item>
+                                    <el-dropdown-item>
+                                      <el-button type="text" @click="handUpdate(data.id)">查看部门</el-button>
+                                    </el-dropdown-item>
+                                  <el-dropdown-item>
+                                    <el-button type="text" @click="handleList()">查看待分配员工</el-button>
+                                  </el-dropdown-item>
+                                  <el-dropdown-item>
+                                    <el-button type="text" @click="handleDelete(data.id)">删除部门</el-button>
+                                  </el-dropdown-item>
+                                </el-dropdown-menu>
+                              </el-dropdown>
+                            </div>
+                          </span>  
+                        </div>
+                      </div>
+                    </el-tree>
               </div>
-            </el-tree>
-          </div>
-        </div>
+            </div>    
       </el-card>
     </div>
-
-    <component v-bind:is="deptAdd" ref="deptAdd"></component>
-  </div>
+    <!--:visible.sync 是否显示 -->
+    <!--引入组件-->
+    <component v-bind:is="deptAdd" ref="addDept"></component>
+</div>
 </template>
-
+ 
 <!-- 引入组件 -->
 <script>
-import {
-  organList,
-  saveOrUpdate,
-  detail,
-  remove
-} from "@/api/base/departments";
-import commonApi from "@/utils/common";
-import deptAdd from "./../components/add"; //导入组件
+//引入api
+import {list,saveOrupdate,find,deleteById} from "@/api/base/dept"
+import commonApi from '@/utils/common'
+import deptAdd from './../components/add'
 export default {
-  //声明引用组件
-  components: { deptAdd }, //声明组件
+  components:{deptAdd},
   data() {
     return {
-      deptAdd: "deptAdd", //配置组件别名
-      activeName: "first",
-      departData: {},
-      depts: [],
-      //添加部门的模型
-      pid: "",
-      dialogFormVisible: false,
-      dept: {}
-    };
+      deptAdd:'deptAdd',
+      activeName: 'first', 
+      departData:{},
+      depts:[]
+    }
   },
   methods: {
-    getList() {
-      organList().then(res => {
-        this.departData = res.data.data;
-        this.depts = commonApi.transformTozTreeFormat(res.data.data.depts);
-      });
+      //添加部门
+    handlAdd(parentId) {
+      //父页面调用子组件中的内容
+      this.$refs.addDept.parentId = parentId;
+      this.$refs.addDept.dialogFormVisible = true
+    },
+    //查看部门
+    handUpdate(id) {
+      //根据id查询部门
+      find({id:id}).then(res => {
+         //数据绑定到dept对象中
+         this.$refs.addDept.dept = res.data.data;
+         this.$refs.addDept.dialogFormVisible = true
+      })
+    },
+  
+    handleDelete(id) {
+       this.$confirm('是否删除此条记录?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+               deleteById({id:id}).then(res=> {
+                this.$message({
+                  message: res.data.message,
+                  type: res.data.success?'success':'error'
+                });
+                if(res.data.success) {
+                  location.reload();
+                }
+              })
+        })
     },
 
-    createData: function() {
-      this.dept.pid = this.pid;
-      saveOrUpdate(this.dept).then(res => {
-        this.$message({
-          message: res.data.message,
-          type: res.data.success ? "success" : "error"
-        });
-        location.reload();
-        this.dialogFormVisible = false;
-      });
-    },
-    handlAdd(pid) {
-      //对子组件中的属性复制
-      this.$refs.deptAdd.formData = {};
-      this.$refs.deptAdd.pid = pid;
-      this.$refs.deptAdd.dialogFormVisible = true;
-    },
-    handleEdit(id) {
-      detail({ id }).then(res => {
-        this.$refs.deptAdd.formData = res.data.data;
-        this.$refs.deptAdd.dialogFormVisible = true;
-        this.$refs.deptAdd.pid = res.data.data.pid;
-      });
-    },
-    handleDelete(obj) {
-      this.$confirm(
-        `本次操作将删除${obj.name},删除后将不可恢复，您确认删除吗？`
-      ).then(() => {
-        remove({ id: obj.id }).then(res => {
-          this.$message({
-            message: res.data.message,
-            type: res.data.success ? "success" : "error"
-          });
-          location.reload();
-        });
-      });
+    //构造查询方法
+    getList() {
+      list().then(res => {
+       this.departData = res.data.data
+       //将普通的数据转化为父子接口
+       this.depts = commonApi.transformTozTreeFormat(res.data.data.depts);
+      })
     }
   },
   created: function() {
     this.getList();
-  }
-};
+  },
+}
 </script>
 <style rel="stylesheet/scss" lang="scss">
 .el-dropdown {
-  color: #000000;
+  color: #000000
 }
-.el-tree-node__content > .el-tree-node__expand-icon {
-  padding: 0px;
+.el-tree-node__content>.el-tree-node__expand-icon {
+  padding:0px;
 }
 .el-tree-node__expand-icon {
-  color: #ffffff;
+  color:#ffffff
 }
 .generalClassNode {
   padding-left: 20px;
 }
-.el-tree-node__content {
+.el-tree-node__content{
   font-size: 16px;
   line-height: 36px;
-  height: 36px;
+  height:36px;
 }
-.custom-tree-node {
+.custom-tree-node{
   padding-left: 20px;
 }
 .objectTree {
@@ -244,18 +208,18 @@ export default {
 }
 </style>
 <style  rel="stylesheet/scss" lang="scss" scoped>
-.el-tree-node__expand-icon {
+.el-tree-node__expand-icon{
+ 
 }
-.el-icon-caret-right {
-}
-.el-tree-node__content {
+.el-icon-caret-right{}
+.el-tree-node__content{
   font-size: 14px;
   line-height: 36px;
 }
 .generalClass {
   font-size: 14px;
   line-height: 36px;
-  color: #000000;
+  color:#000000
 }
 .all {
   position: relative;
@@ -266,7 +230,7 @@ export default {
 .organization-index-top:after {
   display: block;
   clear: both;
-  content: "";
+  content: '';
   visibility: hidden;
   height: 0;
 }
